@@ -5,7 +5,9 @@ import com.example.ForumBackend.security.JwtAuthFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -29,18 +31,57 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authManager(
-            HttpSecurity http,
-            CustomUserDetailsService userDetailsService,
-            PasswordEncoder passwordEncoder
-    ) throws Exception {
-        return http
-                .getSharedObject(AuthenticationManagerBuilder.class)
-                .userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder)
-                .and()
-                .build();
+    public DaoAuthenticationProvider daoAuthenticationProvider(CustomUserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(userDetailsService);
+        provider.setPasswordEncoder(passwordEncoder);
+        return provider;
     }
+
+    @Bean
+    public AuthenticationManager authManager(AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager();
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf(csrf -> csrf.disable())
+                .cors(cors -> {}) // Respect global CORS config
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                "/api/auth/**",
+                                "/uploads/**",
+                                "/api/files",
+                                "/ws/**",
+                                "/ws",
+                                "/topic/**"
+                        ).permitAll()
+                        .requestMatchers("/api/profile/**").authenticated()
+                        .anyRequest().authenticated()
+                )
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+        http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+        return http.build();
+    }
+
+
+
+
+//    @Bean
+//    public AuthenticationManager authManager(
+//            HttpSecurity http,
+//            CustomUserDetailsService userDetailsService,
+//            PasswordEncoder passwordEncoder
+//    ) throws Exception {
+//        return http
+//                .getSharedObject(AuthenticationManagerBuilder.class)
+//                .userDetailsService(userDetailsService)
+//                .passwordEncoder(passwordEncoder)
+//                .and()
+//                .build();
+//    }
 
 //    @Bean
 //    public WebSecurityCustomizer webSecurityCustomizer() {
@@ -85,27 +126,5 @@ public class SecurityConfig {
 //        return http.build();
 //    }
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthFilter jwtAuthFilter) throws Exception {
-        http
-                .csrf(csrf -> csrf.disable())
-                .cors(cors -> {}) // enable CORS
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
-                                "/api/auth/**",         // all auth endpoints
-                                "/uploads/**",          // static uploads (images/docs)
-                                "/ws/**", "/ws",        // WebSocket
-                                "/topic/**"             // STOMP topics
-                        ).permitAll()
-                        .requestMatchers("/api/profile/**").authenticated()
-                        .anyRequest().authenticated()
-                )
-                .sessionManagement(session ->
-                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                );
-
-        http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-        return http.build();
-    }
 
 }
