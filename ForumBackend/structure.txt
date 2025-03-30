@@ -1,0 +1,183 @@
+.
+├── build
+│   ├── classes
+│   │   └── java
+│   │       └── main
+│   │           └── com
+│   │               └── example
+│   │                   └── ForumBackend
+│   │                       ├── config
+│   │                       ├── controller
+│   │                       ├── dto
+│   │                       ├── mapper
+│   │                       ├── model
+│   │                       ├── repository
+│   │                       ├── security
+│   │                       └── service
+│   ├── generated
+│   │   └── sources
+│   │       ├── annotationProcessor
+│   │       │   └── java
+│   │       │       └── main
+│   │       └── headers
+│   │           └── java
+│   │               └── main
+│   ├── reports
+│   │   └── problems
+│   │       └── problems-report.html
+│   ├── resources
+│   │   └── main
+│   │       ├── application.properties
+│   │       ├── static
+│   │       └── templates
+│   └── tmp
+│       └── compileJava
+│           ├── compileTransaction
+│           │   ├── backup-dir
+│           │   └── stash-dir
+│           │       ├── AdminExpertVerificationController.class.uniqueId0
+│           │       ├── AuthService.class.uniqueId1
+│           │       ├── ExpertVerificationController.class.uniqueId3
+│           │       └── ExpertVerificationService.class.uniqueId2
+│           └── previous-compilation-data.bin
+├── build.gradle
+├── gradle
+│   └── wrapper
+│       ├── gradle-wrapper.jar
+│       └── gradle-wrapper.properties
+├── gradlew
+├── gradlew.bat
+├── HELP.md
+├── settings.gradle
+├── src
+│   ├── main
+│   │   ├── java
+│   │   │   └── com
+│   │   │       └── example
+│   │   │           └── ForumBackend
+│   │   │               ├── config
+│   │   │               │   ├── MvcConfig.java
+│   │   │               │   ├── SecurityConfig.java
+│   │   │               │   └── WebConfig.java
+│   │   │               ├── controller
+│   │   │               │   ├── AdminExpertVerificationController.java
+│   │   │               │   ├── AuthController.java
+│   │   │               │   ├── CommentController.java
+│   │   │               │   ├── ConversationController.java
+│   │   │               │   ├── ExpertVerificationController.java
+│   │   │               │   ├── MessageController.java
+│   │   │               │   ├── PostController.java
+│   │   │               │   └── ProfileController.java
+│   │   │               ├── dto
+│   │   │               │   ├── AdminVerificationPreviewDTO.java
+│   │   │               │   ├── CommentResponse.java
+│   │   │               │   ├── ConversationDTO.java
+│   │   │               │   ├── CreateCommentRequest.java
+│   │   │               │   ├── CreatePostRequest.java
+│   │   │               │   ├── ExpertVerificationRequest.java
+│   │   │               │   ├── ExpertVerificationReviewDTO.java
+│   │   │               │   ├── ForgotPasswordRequest.java
+│   │   │               │   ├── LoginRequest.java
+│   │   │               │   ├── LoginResponse.java
+│   │   │               │   ├── MessageDTO.java
+│   │   │               │   ├── MessageResponse.java
+│   │   │               │   ├── PostResponse.java
+│   │   │               │   ├── ProfileDTO.java
+│   │   │               │   ├── RefreshTokenRequest.java
+│   │   │               │   ├── RefreshTokenResponse.java
+│   │   │               │   ├── RegisterResponse.java
+│   │   │               │   ├── RegistrationRequest.java
+│   │   │               │   ├── ResetPasswordRequest.java
+│   │   │               │   └── UserDTO.java
+│   │   │               ├── ForumBackendApplication.java
+│   │   │               ├── mapper
+│   │   │               │   └── ConversationMapper.java
+│   │   │               ├── model
+│   │   │               │   ├── Comment.java
+│   │   │               │   ├── Conversation.java
+│   │   │               │   ├── EmailVerificationToken.java
+│   │   │               │   ├── ExpertVerification.java
+│   │   │               │   ├── Message.java
+│   │   │               │   ├── PasswordResetToken.java
+│   │   │               │   ├── Post.java
+│   │   │               │   ├── RefreshToken.java
+│   │   │               │   ├── Role.java
+│   │   │               │   ├── User.java
+│   │   │               │   └── VerificationStatus.java
+│   │   │               ├── repository
+│   │   │               │   ├── CommentRepository.java
+│   │   │               │   ├── ConversationRepository.java
+│   │   │               │   ├── EmailVerificationTokenRepository.java
+│   │   │               │   ├── ExpertVerificationRepository.java
+│   │   │               │   ├── MessageRepository.java
+│   │   │               │   ├── PasswordResetTokenRepository.java
+│   │   │               │   ├── PostRepository.java
+│   │   │               │   ├── RefreshTokenRepository.java
+│   │   │               │   └── UserRepository.java
+│   │   │               ├── security
+│   │   │               │   ├── CustomUserDetailsService.java
+│   │   │               │   ├── JwtAuthFilter.java
+│   │   │               │   └── JwtUtil.java
+│   │   │               └── service
+│   │   │                   ├── AuthService.java
+│   │   │                   ├── CommentService.java
+│   │   │                   ├── ConversationService.java
+│   │   │                   ├── EmailService.java
+│   │   │                   ├── ExpertVerificationService.java
+│   │   │                   ├── FileStorageService.java
+│   │   │                   ├── MessageService.java
+│   │   │                   ├── PostService.java
+│   │   │                   ├── ProfileService.java
+│   │   │                   ├── RefreshTokenService.java
+│   │   │                   └── UserService.java
+│   │   └── resources
+│   │       ├── application.properties
+│   │       ├── static
+│   │       └── templates
+│   └── test
+│       └── java
+│           └── com
+│               └── example
+│                   └── ForumBackend
+│                       └── ForumBackendApplicationTests.java
+├── structure.txt
+└── uploads
+    └── profile-pictures
+        ├── 0acc3171-c612-4c90-985f-026e12734b54_healthy-discussions.png
+        ├── 10f8eb24-2da3-40eb-a251-73c28632c4e4_WhatsApp Image 2025-03-18 at 13.13.23.jpeg
+        ├── 140cddb7-1384-48ff-bf18-bc9214d0599b_forum-icon.png
+        ├── 169aae6a-dd56-4c43-97f5-3386e937b595_privacy.png
+        ├── 1cfe95f4-2413-41a6-b581-a097676fd8e2_WhatsApp Image 2025-03-18 at 13.13.23.jpeg
+        ├── 2e1d87fe-40a2-4ae6-ab27-78f0a42314c1_WhatsApp Image 2025-03-18 at 13.13.23.jpeg
+        ├── 2f61f5e3-f13f-40da-bf08-6a09d5bcb441_WhatsApp Image 2025-03-18 at 13.13.23.jpeg
+        ├── 309e2c09-8df8-4c1a-a288-188e76705562_healthy-discussions.png
+        ├── 358df694-e17d-4519-b53c-c8935ab818f7_anime-style-game-avatar-mascot-260nw-2322022169.webp
+        ├── 3c5d1b53-a1be-43f9-93c4-a7d757c1f5b0_360_F_830838010_jOP7zEvx6FWpzFnz4NOESNjQLspLDRCd.jpg
+        ├── 4bc535cb-e8e8-4617-8805-6c54f61731a1_privacy.png
+        ├── 51fa22f7-6a0b-4852-bc97-fb3e7ff32406_privacy.png
+        ├── 5633d144-abca-4b75-9b91-86d3db67154c_360_F_830838010_jOP7zEvx6FWpzFnz4NOESNjQLspLDRCd.jpg
+        ├── 56cd720d-c1b1-412e-b1be-c37e1e129e40_privacy.png
+        ├── 7a4d96f6-9a0e-4ed5-a74e-6a39d26d9b6c_WhatsApp Image 2025-03-18 at 13.13.23.jpeg
+        ├── 82c72dc7-bebd-4f44-ae44-afb18532e7de_WhatsApp Image 2025-03-18 at 13.13.23.jpeg
+        ├── a559d939-e93a-4fef-8198-4aecbda7f547_privacy.png
+        ├── a9281f72-44be-427d-a278-943c51e83fb6_privacy.png
+        ├── b0307614-e3e3-4e18-bb6e-9bc9e9f9d599_privacy.png
+        ├── b87dbe8a-b6b4-4475-80c7-40a6038069dd_WhatsApp Image 2025-03-18 at 13.13.23.jpeg
+        ├── c845ac07-c862-404f-8c20-c27b05240bf4_privacy.png
+        ├── c856e7d3-cd71-482f-a8e4-9c779b12dbb9_cool.jpg
+        ├── c96d66d9-b3db-4ab3-9708-61419b917970_healthy-discussions.png
+        ├── cb9a705d-9129-418c-b88b-929e7f3397b5_WhatsApp Image 2025-03-18 at 13.13.23.jpeg
+        ├── d0775191-10e4-41a6-977c-74067d4f1f6b_WhatsApp Image 2025-03-18 at 13.13.23.jpeg
+        ├── d161166a-a532-4cbb-be90-c88c66dc7495_WhatsApp Image 2025-03-18 at 13.13.23.jpeg
+        ├── d6fd3bdc-e7fe-4805-bdf0-055b44617ca1_anime-style-game-avatar-mascot-260nw-2322022169.webp
+        ├── d9af9177-d236-490b-9143-0db97dbd579e_privacy.png
+        ├── e2fad2b9-f356-4c1d-999e-75a40abfba52_WhatsApp Image 2025-03-18 at 13.13.23.jpeg
+        ├── edcb8266-cf69-468c-a8b9-6f810d38181b_privacy.png
+        ├── f3263ddc-bafe-4ebe-b616-8e5128913aa1_WhatsApp Image 2025-03-18 at 13.13.23.jpeg
+        ├── f60b5920-4720-409a-929d-1914218ad7ae_Untitled.jpeg
+        ├── fcb13658-27f9-42d7-b1ff-51462bb4aacf_healthy-discussions.png
+        ├── fce87896-1719-4a39-bd29-ff4d0bf785ec_privacy.png
+        ├── ffcfa5ab-7bda-4825-8daf-38796561a946_privacy.png
+        └── test-image.jpeg
+
+60 directories, 120 files
