@@ -19,19 +19,27 @@ const Navbar = () => {
     try {
       const refreshToken = localStorage.getItem('refreshToken');
       if (refreshToken) {
-        await logout(refreshToken);
+        await logout(refreshToken); // Your existing logout API call
       }
+  
+      // ✅ Remove all relevant auth/session keys
       localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');
       localStorage.removeItem('isLoggedIn');
-      setIsAuthenticated(false);
+      localStorage.removeItem('userType');
+      localStorage.removeItem('applicationStatus');
+      localStorage.removeItem('isVerified');
+  
+      setIsAuthenticated(false); // If you're using this to control auth state
       navigate('/login');
     } catch (error) {
       console.error('Ошибка выхода:', error);
+      // As fallback, clear everything
       localStorage.clear();
       navigate('/login');
     }
   };
+  
 
   const handleDropdownToggle = () => {
     setIsDropdownOpen(!isDropdownOpen);
