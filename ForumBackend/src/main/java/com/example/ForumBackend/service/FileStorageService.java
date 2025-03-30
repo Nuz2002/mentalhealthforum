@@ -32,7 +32,7 @@ public class FileStorageService {
     }
 
     public Resource loadAsResource(String path) throws MalformedURLException {
-        Path file = Paths.get("uploads").resolve(path).normalize();
+        Path file = fileStorageLocation.resolve(path).normalize(); // instead of hardcoded "uploads"
         Resource resource = new UrlResource(file.toUri());
 
         if (resource.exists() || resource.isReadable()) {
@@ -41,6 +41,7 @@ public class FileStorageService {
             throw new RuntimeException("Could not read file: " + path);
         }
     }
+
 
 
     public String upload(MultipartFile file) {
