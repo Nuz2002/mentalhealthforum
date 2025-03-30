@@ -12,7 +12,7 @@ export default function usePresence(currentUserEmail) {
   const stompClientRef = useRef(null);
 
   useEffect(() => {
-    const baseUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
+    const baseUrl = import.meta.env.REACT_APP_API_BASE_URL || "http://localhost:8080";
 
     const socket = new SockJS(`${baseUrl}/ws`);
 
