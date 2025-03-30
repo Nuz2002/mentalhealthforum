@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
 import { getOnlineUsers } from "../../api-calls/presenceApi";
+import { API_BASE_URL } from "../../api-calls/apiClient";
 
 /**
  * Real-time user presence hook.
@@ -12,9 +13,8 @@ export default function usePresence(currentUserEmail) {
   const stompClientRef = useRef(null);
 
   useEffect(() => {
-    const baseUrl = import.meta.env.REACT_APP_API_BASE_URL || "http://localhost:8080";
 
-    const socket = new SockJS(`${baseUrl}/ws`);
+    const socket = new SockJS(`${API_BASE_URL}/ws`);
 
     const stompClient = new Client({
       webSocketFactory: () => socket,

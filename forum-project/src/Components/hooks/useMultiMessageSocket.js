@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
+import { API_BASE_URL } from "../../api-calls/apiClient";
 
 /**
  * Subscribes to multiple conversation message topics over WebSocket/STOMP.
@@ -12,9 +13,8 @@ export default function useMultiMessageSocket(conversationMap, onMessage) {
   const stompClientRef = useRef(null);
 
   useEffect(() => {
-    const baseUrl = import.meta.env.REACT_APP_API_BASE_URL || "http://localhost:8080";
 
-    const socket = new SockJS(`${baseUrl}/ws`);
+    const socket = new SockJS(`${API_BASE_URL}/ws`);
     const stompClient = new Client({
       webSocketFactory: () => socket,
       reconnectDelay: 5000,

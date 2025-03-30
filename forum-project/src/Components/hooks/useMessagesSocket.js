@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
+import { API_BASE_URL } from "../../api-calls/apiClient";
 
 /**
  * Hook for listening to real-time messages via WebSocket.
@@ -14,9 +15,7 @@ export default function useMessagesSocket(conversationId, onNewMessage) {
   useEffect(() => {
     if (!conversationId) return;
 
-    const baseUrl = import.meta.env.REACT_APP_API_BASE_URL || "http://localhost:8080";
-
-    const socket = new SockJS(`${baseUrl}/ws`);
+    const socket = new SockJS(`${API_BASE_URL}/ws`);
     const client = new Client({
       webSocketFactory: () => socket,
       reconnectDelay: 5000,
