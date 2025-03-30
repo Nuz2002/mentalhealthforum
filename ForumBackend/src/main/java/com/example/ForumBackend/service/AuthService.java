@@ -82,7 +82,7 @@ public class AuthService {
         emailVerificationTokenRepository.save(verificationToken);
 
         // Send verification email
-        String verificationLink = "http://localhost:8080/api/auth/verify-email?token=" + token;
+        String verificationLink = "https://mentalhealthforum.onrender.com/api/auth/verify-email?token=" + token;
         emailService.sendVerificationEmail(newUser.getEmail(), verificationLink);
 
         return new RegisterResponse("Регистрация прошла успешно! Пожалуйста, подтвердите свою почту для активации аккаунта.");
