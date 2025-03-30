@@ -47,25 +47,17 @@ const AdminExpertVerificationPanel = () => {
     return `${baseURL}/api/files?path=${encodeURIComponent(path)}`;
   };
 
-  const handleDownload = async (filePath, fileName = "download.jpg") => {
+  const handleDownload = async (filePath, filename = "document") => {
     try {
-      const response = await apiClient.get(`/api/files?path=${encodeURIComponent(filePath)}`, {
-        responseType: 'blob',
-      });
-  
-      const blobUrl = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement('a');
-      link.href = blobUrl;
-      link.setAttribute('download', fileName);
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
+      const blob = await downloadFile(filePath);
+      triggerDownload(blob, filename);
     } catch (err) {
       alert("Не удалось скачать файл.");
       console.error("Download error:", err);
     }
   };
-  
+
+  const getFileName = (filePath) => filePath.split('/').pop();
 
   const handleSelectUser = async (applicationId) => {
     try {
@@ -122,10 +114,6 @@ const AdminExpertVerificationPanel = () => {
           </svg>
         );
     }
-  };
-
-  const getFileName = (filePath) => {
-    return filePath.split('/').pop();
   };
 
   return (
@@ -199,6 +187,7 @@ const AdminExpertVerificationPanel = () => {
                   </svg>
                 </button>
 
+
               </div>
               <div className="flex-1">
                 <h2 className="text-2xl font-bold text-blue-900 mb-2">
@@ -216,11 +205,12 @@ const AdminExpertVerificationPanel = () => {
                         {getFileIcon(docPath)}
                         <span className="text-blue-900 font-medium truncate">{getFileName(docPath)}</span>
                         <button
-                          onClick={() => handleDownload(docPath)}
+                          onClick={() => handleDownload(docPath, getFileName(docPath))}
                           className="ml-auto px-3 py-1.5 bg-white text-blue-600 hover:text-teal-600 rounded-md border border-blue-200 hover:border-teal-300 transition-colors text-sm"
                         >
                           Скачать
                         </button>
+
 
                       </div>
                     ))}
