@@ -55,7 +55,7 @@ apiClient.interceptors.response.use(
         try {
           // Call your refresh endpoint
           const { data } = await axios.post(
-            `${process.env.VITE_API_BASE_URL}/api/auth/refresh`,
+            `${process.env.REACT_APP_API_BASE_URL}/api/auth/refresh`,
             {
               refreshToken,
             },
