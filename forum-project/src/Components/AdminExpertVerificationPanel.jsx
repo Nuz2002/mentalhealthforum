@@ -194,7 +194,7 @@ const AdminExpertVerificationPanel = () => {
                         {getFileIcon(docPath)}
                         <span className="text-blue-900 font-medium truncate">{getFileName(docPath)}</span>
                         <a
-                          href={docPath}
+                          href={getPublicUrl(docPath)}
                           download
                           className="ml-auto px-3 py-1.5 bg-white text-blue-600 hover:text-teal-600 rounded-md border border-blue-200 hover:border-teal-300 transition-colors text-sm"
                         >
