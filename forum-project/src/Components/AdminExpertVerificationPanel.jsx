@@ -5,6 +5,8 @@ import {
   reviewApplication,
 } from "../api-calls/adminExpertVerificationApi";
 
+import { downloadFile, triggerDownload } from '../api-calls/downloadApi';
+
 import defaultProfilePic from '../assets/default-profile.png';
 
 const getPublicUrl = (path) => {
@@ -44,6 +46,26 @@ const AdminExpertVerificationPanel = () => {
     const baseURL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8080";
     return `${baseURL}/api/files?path=${encodeURIComponent(path)}`;
   };
+
+  const handleDownload = async (filePath, fileName = "download.jpg") => {
+    try {
+      const response = await apiClient.get(`/api/files?path=${encodeURIComponent(filePath)}`, {
+        responseType: 'blob',
+      });
+  
+      const blobUrl = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.setAttribute('download', fileName);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (err) {
+      alert("Не удалось скачать файл.");
+      console.error("Download error:", err);
+    }
+  };
+  
 
   const handleSelectUser = async (applicationId) => {
     try {
@@ -168,15 +190,15 @@ const AdminExpertVerificationPanel = () => {
                   src={getPublicUrl(selectedUser.photo)}
                   alt="Пользователь"
                 />
-                <a
-                  href={getPublicUrl(selectedUser.photo)}
-                  download
+                <button
+                  onClick={() => handleDownload(selectedUser.photo, 'profile-photo.jpg')}
                   className="absolute -bottom-2 -right-2 bg-teal-500 p-2 rounded-full shadow-md hover:bg-teal-600 transition-colors"
                 >
                   <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                   </svg>
-                </a>
+                </button>
+
               </div>
               <div className="flex-1">
                 <h2 className="text-2xl font-bold text-blue-900 mb-2">
@@ -193,13 +215,13 @@ const AdminExpertVerificationPanel = () => {
                       <div key={index} className="flex items-center bg-blue-50 rounded-lg p-3">
                         {getFileIcon(docPath)}
                         <span className="text-blue-900 font-medium truncate">{getFileName(docPath)}</span>
-                        <a
-                          href={getPublicUrl(docPath)}
-                          download
+                        <button
+                          onClick={() => handleDownload(docPath)}
                           className="ml-auto px-3 py-1.5 bg-white text-blue-600 hover:text-teal-600 rounded-md border border-blue-200 hover:border-teal-300 transition-colors text-sm"
                         >
                           Скачать
-                        </a>
+                        </button>
+
                       </div>
                     ))}
                   </div>
