@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmailService {
 
+    // This folders needs some change after front-end deployment
+
     @Autowired
     private JavaMailSender mailSender;
 
