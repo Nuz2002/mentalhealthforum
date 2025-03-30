@@ -42,46 +42,70 @@ public class SecurityConfig {
                 .build();
     }
 
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return web -> web.ignoring().requestMatchers("/uploads/**", "/ws/**", "/ws", "/topic/**");
-    }
+//    @Bean
+//    public WebSecurityCustomizer webSecurityCustomizer() {
+//        return web -> web.ignoring().requestMatchers("/uploads/**", "/ws/**", "/ws", "/topic/**");
+//    }
+//
+//    @Bean
+//    public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthFilter jwtAuthFilter) throws Exception {
+//        http
+//                // Disable CSRF for stateless/token-based authentication
+//                .csrf(csrf -> csrf.disable())
+//
+//                // Enable CORS so that it respects your global CORS config (WebConfig)
+//                // or @CrossOrigin on your controllers
+//                .cors(cors -> {})
+//
+//                // Configure which endpoints are permitted/secured
+//                .authorizeHttpRequests(auth -> auth
+//                        .requestMatchers(
+//                                "/api/auth/register",
+//                                "/api/auth/login",
+//                                "/api/auth/verify-email",
+//                                "/api/auth/forgot-password",
+//                                "/api/auth/reset-password",
+//                                "/api/auth/refresh",
+//                                "/api/auth/logout"
+//                        ).permitAll()
+//                        // e.g., require authentication for user profile endpoints
+//                        .requestMatchers("/api/profile/**").authenticated()
+//                        // anything else requires authentication
+//                        .anyRequest().authenticated()
+//                )
+//
+//                // Make the session stateless (JWT approach)
+//                .sessionManagement(session ->
+//                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                );
+//
+//        // Add your JWT filter
+//        http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+//
+//        return http.build();
+//    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthFilter jwtAuthFilter) throws Exception {
         http
-                // Disable CSRF for stateless/token-based authentication
                 .csrf(csrf -> csrf.disable())
-
-                // Enable CORS so that it respects your global CORS config (WebConfig)
-                // or @CrossOrigin on your controllers
-                .cors(cors -> {})
-
-                // Configure which endpoints are permitted/secured
+                .cors(cors -> {}) // enable CORS
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
-                                "/api/auth/register",
-                                "/api/auth/login",
-                                "/api/auth/verify-email",
-                                "/api/auth/forgot-password",
-                                "/api/auth/reset-password",
-                                "/api/auth/refresh",
-                                "/api/auth/logout"
+                                "/api/auth/**",         // all auth endpoints
+                                "/uploads/**",          // static uploads (images/docs)
+                                "/ws/**", "/ws",        // WebSocket
+                                "/topic/**"             // STOMP topics
                         ).permitAll()
-                        // e.g., require authentication for user profile endpoints
                         .requestMatchers("/api/profile/**").authenticated()
-                        // anything else requires authentication
                         .anyRequest().authenticated()
                 )
-
-                // Make the session stateless (JWT approach)
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 );
 
-        // Add your JWT filter
         http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-
         return http.build();
     }
+
 }
