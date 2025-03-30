@@ -2,6 +2,7 @@
   "name": "forum-project",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "@shadcn/ui": "^0.0.4",
     "@stomp/stompjs": "^7.1.0",
