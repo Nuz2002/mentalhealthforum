@@ -40,7 +40,7 @@ const Experts = () => {
       : null;
   
     return {
-      name: `${expert.user.firstName} ${expert.user.lastName}`,
+      name: `${expert.firstName} ${expert.lastName}`,
       username: expert.user.username,
       email: expert.user.email,
       photo: photoUrl,
