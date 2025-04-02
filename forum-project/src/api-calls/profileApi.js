@@ -48,6 +48,7 @@ export const uploadProfilePicture = async (file) => {
     });
     return response.data;
   } catch (error) {
+    console.log(error)
     throw error;
   }
 };
