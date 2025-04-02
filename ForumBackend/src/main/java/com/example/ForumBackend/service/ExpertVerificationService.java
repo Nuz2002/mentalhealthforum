@@ -155,17 +155,16 @@ public class ExpertVerificationService {
     @Autowired
     private UserRepository userRepository;
 
-    // Instead of local FileStorageService, use the S3Client
+    // Inject an S3Client instead of a FileStorageService
     @Autowired
     private S3Client s3Client;
 
-    // Bucket name from application.properties
+    // Your S3 bucket name from application.properties
     @Value("${cloud.aws.s3.bucket}")
     private String bucketName;
 
-    // If you're in eu-north-1, you can hardcode it here
-    // or read it from "cloud.aws.region.static" if you prefer.
-    private static final String AWS_REGION = "eu-north-1"; // adjust if needed
+    // Adjust region if needed, or read from "cloud.aws.region.static"
+    private static final String AWS_REGION = "eu-north-1";
 
     /**
      * Submits a new expert verification application.
@@ -255,11 +254,10 @@ public class ExpertVerificationService {
             );
 
             // 2) Build the S3 URL (for eu-north-1)
-            //    Format: https://<bucket>.s3.eu-north-1.amazonaws.com/<key>
+            //    e.g. https://<bucketName>.s3.eu-north-1.amazonaws.com/<key>
             return "https://" + bucketName + ".s3." + AWS_REGION + ".amazonaws.com/" + uniqueFilename;
 
         } catch (IOException e) {
-            // Handle exception
             throw new RuntimeException("Failed to upload file to S3", e);
         }
     }
@@ -267,7 +265,7 @@ public class ExpertVerificationService {
     public VerificationStatus getLatestApplicationStatusByEmail(String email) {
         return expertVerificationRepository.findTopByUserEmailOrderBySubmittedAtDesc(email)
                 .map(ExpertVerification::getStatus)
-                .orElse(null); // Return null if no application exists
+                .orElse(null);
     }
 
     public List<ExpertVerification> getApprovedExperts() {
