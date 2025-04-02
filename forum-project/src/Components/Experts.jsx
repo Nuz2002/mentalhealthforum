@@ -36,7 +36,7 @@ const Experts = () => {
     const photoUrl = expert.user.photo
       ? expert.user.photo.startsWith("http")
         ? expert.user.photo
-        : `${import.meta.env.VITE_API_BASE_URL}${expert.user.photo}`
+        : `${import.meta.env.REACT_API_BASE_URL}${expert.user.photo}`
       : null;
   
     return {
